@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+using System;
 public class UpDownObject : MonoBehaviour
 {
     [SerializeField] GameObject sphere;
@@ -17,29 +17,28 @@ public class UpDownObject : MonoBehaviour
     private PhysicsState sphereState;
     private PhysicsState cylinderState;
 
-    private Vector3 initialPosition;
-    private const float G=9.8f * 0.25f; // 落下速度調整
+    private Vector3 sphereInitialPosition;
     private const float GROUND_Y = 0.0f; // 水滴の落ちる位置
-    private float gravity = G;
-    private float radius_coef = 1.0f; //radius = -sphereState.pos_y * radius_coef;
+    [SerializeField] float radius_max = 1.0f; //radiusの最大値
+    [SerializeField] float velocityFallingSurfaceConstant = 1.0f; //水滴の落下速度、水面の拡縮速度の比例定数
     private int SpacePushedCount=0;
     private bool Manual = false;
     private bool sphereIsActive = true; 
 
     void Start()
     {
-        initialPosition = sphere.transform.position;
-        sphereState.pos_x = initialPosition.x;
-        sphereState.pos_y = initialPosition.y;
-        sphereState.pos_z = initialPosition.z;
+        sphereInitialPosition = sphere.transform.position;
+        sphereState.pos_x = sphereInitialPosition.x;
+        sphereState.pos_y = sphereInitialPosition.y;
+        sphereState.pos_z = sphereInitialPosition.z;
         sphereState.vel_x = 0.0f;
         sphereState.vel_y = 0.0f;
         sphereState.vel_z = 0.0f;
 
         // cylinderはsphereの真下にくる
-        cylinderState.pos_x = initialPosition.x;
+        cylinderState.pos_x = sphereInitialPosition.x;
         cylinderState.pos_y = GROUND_Y;
-        cylinderState.pos_z = initialPosition.z;
+        cylinderState.pos_z = sphereInitialPosition.z;
         cylinderState.vel_x = 0.0f;
         cylinderState.vel_y = 0.0f;
         cylinderState.vel_z = 0.0f;
@@ -63,13 +62,22 @@ public class UpDownObject : MonoBehaviour
                 sphereState.pos_y -= 0.001f;
             }   
         }else{
-            if(sphereState.pos_y > GROUND_Y){
-                gravity = G;
-            }else{
-                gravity = -G;
+            //sphereの位置
+            sphereState.pos_y = sphereInitialPosition.y * Mathf.Cos(Time.time*velocityFallingSurfaceConstant); // sphereの初期位置を最大値としたcosの動きをする
+            if(sphereState.pos_y < GROUND_Y){
+                sphereState.pos_y = GROUND_Y;
             }
-            sphereState.vel_y += gravity*Time.deltaTime;
-            sphereState.pos_y -= sphereState.vel_y*Time.deltaTime;
+
+            //cylinderのradiusの大きさ
+            float cylinderRadius = -radius_max * Mathf.Cos(Time.time*velocityFallingSurfaceConstant); // cosの動きで拡縮する
+            if(cylinderRadius < 0.0f){
+                cylinderRadius = 0.0f;
+            }
+            Vector3 scale = cylinder.transform.localScale;
+            scale.x = cylinderRadius;
+            scale.y = 0.0f;
+            scale.z = cylinderRadius;
+            cylinder.transform.localScale = scale;
 
             if(sphereIsActive && sphereState.pos_y <= GROUND_Y + 0.015f){ //カメラが球体の中に侵入しないようにするために非アクティブにする距離
                 sphereIsActive = false;
@@ -78,18 +86,6 @@ public class UpDownObject : MonoBehaviour
                 sphereIsActive = true;
             }
             sphere.SetActive(sphereIsActive);
-
-            // cylinderのサイズ調整
-            Vector3 scale = cylinder.transform.localScale;
-            float radius = -sphereState.pos_y * radius_coef;
-            if(radius < 0.0f){
-                radius = 0.0f;
-            }
-            scale.x = radius;
-            scale.y = 0.0f;
-            scale.z = radius;
-            cylinder.transform.localScale = scale;
-
         }
                     
 
