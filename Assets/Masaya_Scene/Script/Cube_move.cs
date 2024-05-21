@@ -3,7 +3,7 @@ using UnityEngine;
 public class Cube_move : MonoBehaviour {
 
     float speed = 0.001f;
-    float minX = -2.0f;
+    float minX = -3.0f;
     float maxX = 2.0f;
 
     bool increasing = true; //増加させるかどうかのフラグ
