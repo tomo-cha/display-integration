@@ -34,7 +34,6 @@ MonoBehaviour:
     m_IsDefault: 0
     m_Capabilities: 0
     m_ConfigSource: 4
-  m_UserSelectedRegistryName: Unity NuGet
   - m_Id: scoped:project:Keijiro_OSC
     m_Name: Keijiro_OSC
     m_Url: https://registry.npmjs.com

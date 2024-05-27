@@ -1,12 +1,4 @@
 {
-  "scopedRegistries": [
-    {
-      "name": "Unity NuGet",
-      "url": "https://unitynuget-registry.azurewebsites.net",
-      "scopes": [ "org.nuget" ]
-    }
-
-  ],
   "dependencies": {
     "org.nuget.system.memory": "4.5.3",
     "com.unity.collab-proxy": "2.0.0",
@@ -53,6 +45,11 @@
     "com.unity.modules.xr": "1.0.0"
   },
   "scopedRegistries": [
+    {
+      "name": "Unity NuGet",
+      "url": "https://unitynuget-registry.azurewebsites.net",
+      "scopes": [ "org.nuget" ]
+    },
     {
       "name": "Keijiro_OSC",
       "url": "https://registry.npmjs.com",
