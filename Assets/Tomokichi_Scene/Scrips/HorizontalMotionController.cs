@@ -5,7 +5,7 @@ using UnityEngine;
 public class HorizontalMotionController : MonoBehaviour
 {
     [SerializeField] GameObject sphere;
-    [SerializeField] float vel_x = 1.0f;
+    [SerializeField] float vel_x = 0.1f;
     private Vector3 sphereInitialPosition;
     void Start()
     {
@@ -15,7 +15,7 @@ public class HorizontalMotionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float pos_x = 2.0f * Mathf.Cos(Time.time*vel_x);
-        sphere.transform.position = new Vector3(pos_x, sphereInitialPosition.y, sphereInitialPosition.z);
+        float pos_x = 4.0f * Mathf.Cos(Time.time*vel_x);
+        sphere.transform.position = new Vector3(sphereInitialPosition.x, sphereInitialPosition.y, pos_x);
     }
 }
