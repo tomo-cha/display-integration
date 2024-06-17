@@ -793,7 +793,6 @@ GameObject:
   - component: {fileID: 748605466}
   - component: {fileID: 748605465}
   - component: {fileID: 748605464}
-  - component: {fileID: 748605463}
   m_Layer: 0
   m_Name: Cube_move
   m_TagString: Untagged
@@ -801,21 +800,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &748605463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 748605462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2fe5546f775c47d2820aa5e8a715f53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"nest":{"source":"Embed","macro":null,"embed":{"variables":{"Kind":"Flow","collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[],"controlOutputDefinitions":[],"valueInputDefinitions":[],"valueOutputDefinitions":[],"title":null,"summary":"\t\t","pan":{"x":287.1803,"y":266.0589},"zoom":0.5,"elements":[{"coroutine":false,"defaultValues":{},"position":{"x":-201.0,"y":6.0},"guid":"6bf8b97f-70d7-4a2c-8da0-5c5264c828cb","$version":"A","$type":"Unity.VisualScripting.Update","$id":"10"},{"type":"UnityEngine.Vector3","instance":true,"static":true,"defaultValues":{"target":{"x":0.0,"y":0.0,"z":0.0,"$type":"UnityEngine.Vector3"}},"position":{"x":-1.0,"y":117.0},"guid":"2e964651-02cb-4fdc-af06-d6152f874352","$version":"A","$type":"Unity.VisualScripting.Expose","$id":"12"},{"member":{"name":"localPosition","parameterTypes":null,"targetType":"UnityEngine.Transform","targetTypeName":"UnityEngine.Transform","$version":"A"},"defaultValues":{"target":null},"position":{"x":-255.0,"y":155.0},"guid":"79490885-d9cf-45ab-bac8-50af82e97b6e","$version":"A","$type":"Unity.VisualScripting.GetMember","$id":"14"},{"defaultValues":{"Connection":null,"Address":{"$content":"/unity","$type":"System.String"},"Input":{"$content":0.0,"$type":"System.Single"}},"position":{"x":469.0,"y":-41.0},"guid":"bc0bb72c-9824-4e73-b14c-151de343ce21","$version":"A","$type":"OscJack.VisualScripting.OscFloatOutput","$id":"17"},{"sourceUnit":{"$ref":"10"},"sourceKey":"trigger","destinationUnit":{"$ref":"17"},"destinationKey":"Enter","guid":"3179aa54-6b14-4ea2-b463-512a94eff6ff","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"14"},"sourceKey":"value","destinationUnit":{"$ref":"12"},"destinationKey":"target","guid":"8545bb27-89cb-4d87-9325-74b3859cb8bb","$type":"Unity.VisualScripting.ValueConnection"},{"sourceUnit":{"$ref":"12"},"sourceKey":"z","destinationUnit":{"$ref":"17"},"destinationKey":"Input","guid":"96892a9e-f75a-4202-b8ea-1e617e797b48","$type":"Unity.VisualScripting.ValueConnection"}],"$version":"A"}}}'
-    _objectReferences: []
 --- !u!114 &748605464
 MonoBehaviour:
   m_ObjectHideFlags: 0
