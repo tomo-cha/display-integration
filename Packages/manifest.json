@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "org.nuget.system.memory": "4.5.3",
     "com.unity.collab-proxy": "2.0.0",
     "com.unity.feature.development": "1.0.1",
     "com.unity.ide.rider": "3.0.18",
@@ -11,7 +10,9 @@
     "com.unity.timeline": "1.6.4",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.8.0",
+    "jp.keijiro.klak.visualscripting": "1.1.0",
     "jp.keijiro.osc-jack.visualscripting": "2.0.0",
+    "org.nuget.system.memory": "4.5.3",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
@@ -48,7 +49,9 @@
     {
       "name": "Unity NuGet",
       "url": "https://unitynuget-registry.azurewebsites.net",
-      "scopes": [ "org.nuget" ]
+      "scopes": [
+        "org.nuget"
+      ]
     },
     {
       "name": "Keijiro_OSC",
