@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TomokichiSender.unity
     guid: f8d5e62f68b5eec47a9850f378009f4c
   - enabled: 1
-    path: Assets/Scenes/Masaya.unity
+    path: Assets/Scenes/Masaya/Masaya.unity
     guid: 31e2643a096161f45a7bc194bc9e5077
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
