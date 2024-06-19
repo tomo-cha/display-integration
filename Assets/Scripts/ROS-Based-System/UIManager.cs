@@ -51,7 +51,7 @@ public sealed class UIManager : MonoBehaviour
 
         var rosObject = GameObject.Find("ROSConnectionPrefab(Clone)");
         rosObject.AddComponent<RosNamespaceManager>();
-        rosObject.GetComponent<RosNamespaceManager>().ros_namespace = inpElem5.text;
+        rosObject.GetComponent<RosNamespaceManager>().rosNamespace = inpElem5.text;
 
         DontDestroyOnLoad(rosObject);
        

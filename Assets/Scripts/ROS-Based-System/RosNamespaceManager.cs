@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class RosNamespaceManager : MonoBehaviour
 {
-    public string ros_namespace = "";
+    public string rosNamespace = "";
 }

@@ -537,7 +537,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1612873860}
-  - component: {fileID: 1612873859}
+  - component: {fileID: 1612873861}
+  - component: {fileID: 1612873862}
   m_Layer: 0
   m_Name: ROS-Communicator
   m_TagString: Untagged
@@ -545,22 +546,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1612873859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612873858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a448414f2221af41b04b661606dc8d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraTopicName: camera
-  cameraInfoValues:
-  - rosNamespace: robot1
-    targetGameobject: {fileID: 1196037148}
 --- !u!4 &1612873860
 Transform:
   m_ObjectHideFlags: 0
@@ -576,6 +561,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1612873861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612873858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af4dea571460403408cc12b152d10bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTopicName: camera
+  targetGameobject: {fileID: 1196037148}
+--- !u!114 &1612873862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612873858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aa3a34f158f6094b95b17066bdea8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTopicName: object
+  targetGameobject: {fileID: 2054437251}
 --- !u!1001 &2054437250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -639,3 +652,8 @@ PrefabInstance:
     - {fileID: 4324970558374611363, guid: 9078e90069e9b82428fdfb87a67f1268, type: 3}
     - {fileID: 4324970558374611365, guid: 9078e90069e9b82428fdfb87a67f1268, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9078e90069e9b82428fdfb87a67f1268, type: 3}
+--- !u!1 &2054437251 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3513942539121774697, guid: 9078e90069e9b82428fdfb87a67f1268, type: 3}
+  m_PrefabInstance: {fileID: 2054437250}
+  m_PrefabAsset: {fileID: 0}
