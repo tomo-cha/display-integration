@@ -238,7 +238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &305948029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,6 +601,7 @@ GameObject:
   - component: {fileID: 1612873860}
   - component: {fileID: 1612873861}
   - component: {fileID: 1612873862}
+  - component: {fileID: 1612873863}
   m_Layer: 0
   m_Name: ROS-Communicator
   m_TagString: Untagged
@@ -651,6 +652,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectTopicName: object
   targetGameobject: {fileID: 2054437251}
+--- !u!114 &1612873863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612873858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2b0e09571f8bc4fb964b65dca1dd3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UiGameObject: {fileID: 305948028}
 --- !u!1001 &2054437250
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,12 +6,14 @@ using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
 using Unity.Robotics.ROSTCPConnector;
+using Unity.VisualScripting;
 
 public class UIManagerRuntime : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] UIDocument _uiDocument;
     VisualElement headerElement;
+    ROSConnection ros;
     bool enableTransition = false;
     float _h;
 
@@ -28,6 +30,8 @@ public class UIManagerRuntime : MonoBehaviour
 
         headerElement = _uiDocument.rootVisualElement.Q<VisualElement>("Header");
         _h = Screen.height * 0.1f;
+
+        ros = ROSConnection.GetOrCreateInstance();
     }
 
     // Update is called once per frame
@@ -52,7 +56,14 @@ public class UIManagerRuntime : MonoBehaviour
 
     void SettingsButtonClicked()
     {
+        ros.Disconnect();
         var rosObject = GameObject.Find("ROSConnectionPrefab(Clone)");
+        
+        if(rosObject != null)
+        {
+            GameObject.Destroy(rosObject);
+        }        
+
         Debug.Log("Settings Button");
         enableTransition = true;
         
@@ -65,5 +76,9 @@ public class UIManagerRuntime : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+    private void OnApplicationQuit()
+    {
+        ros.Disconnect();
     }
 }
