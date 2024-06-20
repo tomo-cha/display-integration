@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/USS/ConnectionUI.uss?fileID=7433441132597879392&amp;guid=b8d5ceea71a354448bf4d86d21139d11&amp;type=3#ConnectionUI" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; height: 100%; justify-content: flex-start; align-self: flex-start; width: 100%; align-items: flex-start; background-color: rgb(212, 212, 212); flex-direction: column;">
+        <ui:VisualElement name="SettingsButton" style="flex-grow: 0; height: 30%; width: 100%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center; margin-top: 10%;">
+            <ui:Label tabindex="-1" text="Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Settings" class="settings" />
+        </ui:VisualElement>
+        <ui:VisualElement name="QuitButton" style="flex-grow: 0; height: 30%; width: 100%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center; margin-top: 0;">
+            <ui:Label tabindex="-1" text="Quit Application" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Quit" class="connect quit" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Header" style="flex-grow: 0; height: 10%; width: 100%; flex-direction: column; background-color: rgb(58, 75, 71); align-self: flex-start; align-items: flex-start; justify-content: center; position: absolute;">
+            <ui:Label tabindex="-1" text="Display Integration Client  System" parse-escape-sequences="true" display-tooltip-when-elided="true" style="justify-content: flex-start; align-self: flex-start; -unity-text-align: upper-left; color: rgb(212, 212, 212); font-size: 18px; padding-left: 30px; padding-top: 0; align-items: flex-start;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

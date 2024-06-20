@@ -16,11 +16,11 @@
         <ui:VisualElement name="TopicNameInputModule" style="height: 84px; width: 100%; flex-direction: row; margin-top: 15px; margin-bottom: 15px; -unity-text-align: middle-center; justify-content: center;">
             <ui:TextField picking-mode="Ignore" label="ROS-namespace" value="filler text" name="NamespaceInputField" style="width: 50%; justify-content: flex-start; margin-left: 3px; font-size: 21px; height: 100%; -unity-font-style: bold; -unity-text-align: middle-left; -unity-text-outline-color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0);" />
         </ui:VisualElement>
-        <ui:VisualElement name="ConnectButton" style="flex-grow: 0; height: 199px; width: 35%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center;">
-            <ui:Label tabindex="-1" text="Connect" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Connect" class="connect" style="height: 92px; font-size: 24px; -unity-text-align: middle-center; width: 73%; background-color: rgb(21, 46, 36); -unity-font-style: bold; color: rgb(243, 243, 243); border-top-left-radius: 28px; border-top-right-radius: 28px; border-bottom-right-radius: 28px; border-bottom-left-radius: 28px;" />
+        <ui:VisualElement name="ConnectButton" class="Connect" style="flex-grow: 0; height: 199px; width: 35%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center;">
+            <ui:Label tabindex="-1" text="Connect" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Connect" class="connect Button" />
         </ui:VisualElement>
         <ui:VisualElement name="Header" style="flex-grow: 0; height: 10%; width: 100%; flex-direction: column; background-color: rgb(58, 75, 71); align-self: flex-start; align-items: flex-start; justify-content: center; position: absolute;">
-            <ui:Label tabindex="-1" text="ROS-Unity Controller" parse-escape-sequences="true" display-tooltip-when-elided="true" style="justify-content: flex-start; align-self: flex-start; -unity-text-align: upper-left; color: rgb(212, 212, 212); font-size: 18px; padding-left: 30px; padding-top: 0; align-items: flex-start;" />
+            <ui:Label tabindex="-1" text="Display Integration Client  System" parse-escape-sequences="true" display-tooltip-when-elided="true" style="justify-content: flex-start; align-self: flex-start; -unity-text-align: upper-left; color: rgb(212, 212, 212); font-size: 18px; padding-left: 30px; padding-top: 0; align-items: flex-start;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

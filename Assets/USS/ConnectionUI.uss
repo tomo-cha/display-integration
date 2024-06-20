@@ -1,6 +1,78 @@
-.connect:hover {
-    scale: 1.1 1.1;
-    transition-duration: 0.1s;
+.connect {
+    height: 92px;
+    font-size: 24px;
+    -unity-text-align: middle-center;
+    width: 73%;
+    background-color: rgb(21, 46, 36);
+    -unity-font-style: bold;
+    color: rgb(243, 243, 243);
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+    border-bottom-right-radius: 28px;
+    border-bottom-left-radius: 28px;
+    transition-duration: 0.2s;
     transition-timing-function: ease-out-circ;
-    background-color: rgba(21, 46, 36, 0);
+    transition-delay: 0.1s;
+}
+
+.connect:hover {
+    background-color: rgba(63, 123, 86, 255);
+    scale: 1.1 1.1;
+    transition-duration: 0.6s;
+    transition-timing-function: ease-out-circ;
+    transition-delay: 0.05s;
+}
+
+.settings {
+    height: 35%;
+    font-size: 24px;
+    -unity-text-align: middle-center;
+    width: 50%;
+    background-color: rgb(21, 46, 36);
+    -unity-font-style: bold;
+    color: rgb(243, 243, 243);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding-left: 0;
+    padding-right: 0;
+    transition-timing-function: ease-out-circ;
+    transition-duration: 0.2s;
+    transition-delay: 0.1s;
+}
+
+.quit {
+    height: 35%;
+    font-size: 24px;
+    -unity-text-align: middle-center;
+    width: 50%;
+    background-color: rgb(21, 46, 36);
+    -unity-font-style: bold;
+    color: rgb(243, 243, 243);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding-left: 0;
+    padding-right: 0;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out-circ;
+    transition-delay: 0.1s;
+}
+
+.settings:hover {
+    background-color: rgba(63, 123, 86, 255);
+    scale: 1.1 1.1;
+    transition-timing-function: ease-out-circ;
+    transition-duration: 0.2s;
+    transition-delay: 0.1s;
+}
+
+.quit:hover {
+    background-color: rgba(63, 123, 86, 255);
+    scale: 1.1 1.1;
+    transition-timing-function: ease-out-circ;
+    transition-duration: 0.2s;
+    transition-delay: 0.1s;
 }

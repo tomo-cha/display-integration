@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 154405481}
   - component: {fileID: 154405484}
   m_Layer: 5
-  m_Name: UIDocument
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -279,7 +279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDocument: {fileID: 154405481}
-  ros_namespace: 
 --- !u!1 &658655458
 GameObject:
   m_ObjectHideFlags: 0

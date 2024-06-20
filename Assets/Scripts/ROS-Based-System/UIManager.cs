@@ -60,7 +60,7 @@ public sealed class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("screen height: " + Screen.height + "/ _h: " + _h);
+        //Debug.Log("screen height: " + Screen.height + "/ _h: " + _h);
 
         if(enableTransition)
         {
