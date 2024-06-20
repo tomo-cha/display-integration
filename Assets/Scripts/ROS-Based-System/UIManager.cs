@@ -23,6 +23,9 @@ public sealed class UIManager : MonoBehaviour
         var connectElement = _uiDocument.rootVisualElement.Q<Label>("Connect");
         connectElement.AddManipulator(new Clickable(ButtonClicked));
 
+        var quitElement = _uiDocument.rootVisualElement.Q<Label>("Quit");
+        quitElement.AddManipulator(new Clickable(QuitButtonClicked));
+
         inpElem1 = _uiDocument.rootVisualElement.Q<TextField>("IPTextField1");
         inpElem2 = _uiDocument.rootVisualElement.Q<TextField>("IPTextField2");
         inpElem3 = _uiDocument.rootVisualElement.Q<TextField>("IPTextField3");
@@ -38,8 +41,8 @@ public sealed class UIManager : MonoBehaviour
     {
         enableTransition = true;
         string ipAddress = inpElem1.text + "." + inpElem2.text + "." + inpElem3.text + "." + inpElem4.text;
-        Debug.Log("ip address: " +ipAddress);
-        Debug.Log("Clicked");
+        // Debug.Log("ip address: " +ipAddress);
+        // Debug.Log("Clicked");
 
         ros = ROSConnection.GetOrCreateInstance();
         ros.ConnectOnStart = false;
@@ -52,6 +55,8 @@ public sealed class UIManager : MonoBehaviour
         var rosObject = GameObject.Find("ROSConnectionPrefab(Clone)");
         rosObject.AddComponent<RosNamespaceManager>();
         rosObject.GetComponent<RosNamespaceManager>().rosNamespace = inpElem5.text;
+
+        ros.Connect();
 
         DontDestroyOnLoad(rosObject);
        
@@ -74,14 +79,36 @@ public sealed class UIManager : MonoBehaviour
 
             if (_h > Screen.height * 0.99)
             {
-                ros.Connect();
-                SceneManager.LoadScene("ROS-Client");
+                if(ros.HasConnectionError)
+                {
+                    SceneManager.LoadScene("IPAddressInput");
+                    ros.Disconnect();
+                }
+                else
+                {
+                    SceneManager.LoadScene("ROS-Client");
+                }
+                
+                
             }
         }
 
     }
+
+    void QuitButtonClicked()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
     private void OnApplicationQuit()
     {
-        ros.Disconnect();
+        if(enableTransition)
+        {
+            ros.Disconnect();
+        }
     }
 }

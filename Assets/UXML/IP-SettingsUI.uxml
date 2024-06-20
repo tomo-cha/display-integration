@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/USS/ConnectionUI.uss?fileID=7433441132597879392&amp;guid=b8d5ceea71a354448bf4d86d21139d11&amp;type=3#ConnectionUI" />
-    <ui:VisualElement name="Root" style="flex-grow: 1; height: 100%; justify-content: flex-start; align-self: flex-start; width: 100%; align-items: flex-start; background-color: rgb(212, 212, 212); flex-direction: column;">
+    <ui:VisualElement name="Root" style="flex-grow: 1; height: 100%; justify-content: flex-start; align-self: flex-start; width: 100%; align-items: flex-start; background-color: rgb(212, 212, 212); flex-direction: column; -unity-font: initial; font-size: 24px;">
         <ui:VisualElement name="Discription1" style="flex-grow: 0; height: 112px; width: 100%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; margin-top: 60px;">
             <ui:Label tabindex="-1" text="Please Input IP Address" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DescriptionText1" style="font-size: 26px; -unity-font: url(&apos;project://database/Assets/TextMesh%20Pro/Examples%20&amp;%20Extras/Fonts/Anton.ttf?fileID=12800000&amp;guid=997a43b767814dd0a7642ec9b78cba41&amp;type=3#Anton&apos;); -unity-font-style: bold; padding-left: 30px; color: rgb(38, 15, 15);" />
         </ui:VisualElement>
@@ -16,11 +16,14 @@
         <ui:VisualElement name="TopicNameInputModule" style="height: 84px; width: 100%; flex-direction: row; margin-top: 15px; margin-bottom: 15px; -unity-text-align: middle-center; justify-content: center;">
             <ui:TextField picking-mode="Ignore" label="ROS-namespace" value="filler text" name="NamespaceInputField" style="width: 50%; justify-content: flex-start; margin-left: 3px; font-size: 21px; height: 100%; -unity-font-style: bold; -unity-text-align: middle-left; -unity-text-outline-color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0);" />
         </ui:VisualElement>
-        <ui:VisualElement name="ConnectButton" class="Connect" style="flex-grow: 0; height: 199px; width: 35%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center;">
-            <ui:Label tabindex="-1" text="Connect" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Connect" class="connect Button" />
+        <ui:VisualElement name="ConnectButton" class="Connect" style="flex-grow: 0; height: 15%; width: 35%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center;">
+            <ui:Label tabindex="-1" text="Connect" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Connect" class="connect Button" style="height: 60%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="QuitButton" class="Connect" style="flex-grow: 0; height: 15%; width: 35%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center;">
+            <ui:Label tabindex="-1" text="Quit Application" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Quit" class="connect Button" style="height: 60%;" />
         </ui:VisualElement>
         <ui:VisualElement name="Header" style="flex-grow: 0; height: 10%; width: 100%; flex-direction: column; background-color: rgb(58, 75, 71); align-self: flex-start; align-items: flex-start; justify-content: center; position: absolute;">
-            <ui:Label tabindex="-1" text="Display Integration Client  System" parse-escape-sequences="true" display-tooltip-when-elided="true" style="justify-content: flex-start; align-self: flex-start; -unity-text-align: upper-left; color: rgb(212, 212, 212); font-size: 18px; padding-left: 30px; padding-top: 0; align-items: flex-start;" />
+            <ui:Label tabindex="-1" text="Display Integration Client  System" parse-escape-sequences="true" display-tooltip-when-elided="true" style="justify-content: flex-start; align-self: flex-start; -unity-text-align: middle-left; color: rgb(212, 212, 212); font-size: 20px; padding-left: 30px; padding-top: 0; align-items: flex-start; -unity-font: initial; -unity-font-style: bold;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

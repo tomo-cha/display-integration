@@ -26,6 +26,11 @@ public class CameraInfoReciever : MonoBehaviour
         ros.Subscribe<PoseMsg>(topicName,CameraPoseSubscriber);
     }
 
+    void Update()
+    {
+        
+    }
+
     void CameraPoseSubscriber(PoseMsg msg)
     {
         targetGameobject.transform.position = new Vector3(

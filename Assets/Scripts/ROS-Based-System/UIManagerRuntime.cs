@@ -64,7 +64,6 @@ public class UIManagerRuntime : MonoBehaviour
             GameObject.Destroy(rosObject);
         }        
 
-        Debug.Log("Settings Button");
         enableTransition = true;
         
     }
@@ -77,8 +76,13 @@ public class UIManagerRuntime : MonoBehaviour
         Application.Quit();
 #endif
     }
+
     private void OnApplicationQuit()
     {
-        ros.Disconnect();
+        if(ros.isActiveAndEnabled)
+        {
+            ros.Disconnect();
+        }
+        
     }
 }
