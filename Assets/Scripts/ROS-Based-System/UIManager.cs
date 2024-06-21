@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using Unity.Robotics.ROSTCPConnector;
+using UnityEngine.UI;
 
 public sealed class UIManager : MonoBehaviour
 {
@@ -11,8 +12,11 @@ public sealed class UIManager : MonoBehaviour
     [SerializeField] UIDocument _uiDocument;
     
     TextField inpElem1, inpElem2, inpElem3, inpElem4, inpElem5, inpElem6;
+    Label label;
     VisualElement headerElement;
     ROSConnection ros;
+    GameObject rosObject;
+    Color errorColor = new Color(0.75f, 0f, 0f);
     bool enableTransition = false;
     float _h;
 
@@ -26,6 +30,8 @@ public sealed class UIManager : MonoBehaviour
         var quitElement = _uiDocument.rootVisualElement.Q<Label>("Quit");
         quitElement.AddManipulator(new Clickable(QuitButtonClicked));
 
+        label = _uiDocument.rootVisualElement.Q<Label>("DescriptionText1");
+
         inpElem1 = _uiDocument.rootVisualElement.Q<TextField>("IPTextField1");
         inpElem2 = _uiDocument.rootVisualElement.Q<TextField>("IPTextField2");
         inpElem3 = _uiDocument.rootVisualElement.Q<TextField>("IPTextField3");
@@ -36,39 +42,49 @@ public sealed class UIManager : MonoBehaviour
 
         headerElement = _uiDocument.rootVisualElement.Q<VisualElement>("Header");
         _h = Screen.height * 0.1f;
+
+        rosObject = GameObject.Find("ROSConnectionPrefab(Clone)");
+        if(rosObject != null && rosObject.GetComponent<ValueTransport>().connectionError)
+        {
+            label.text = "Settings Menu --[ERROR] Connection Failed.";
+            label.style.color = errorColor;
+        }
     }
 
     void ButtonClicked()
     {
-        enableTransition = true;
-        string ipAddress = inpElem1.text + "." + inpElem2.text + "." + inpElem3.text + "." + inpElem4.text;
-        // Debug.Log("ip address: " +ipAddress);
-        // Debug.Log("Clicked");
+        if(inpElem1.text != "" && inpElem2.text != "" && inpElem3.text != "" && inpElem4.text != "" && inpElem5.text != "" && inpElem6.text != "")
+        {
+            enableTransition = true;
+            string ipAddress = inpElem1.text + "." + inpElem2.text + "." + inpElem3.text + "." + inpElem4.text;
 
-        ros = ROSConnection.GetOrCreateInstance();
-        ros.ConnectOnStart = false;
-        ros.RosIPAddress = ipAddress;
-        ros.RosIPAddress = ipAddress;
-        ros.RosPort = 10000;
-        ros.ShowHud = false;
-        ros.NetworkTimeoutSeconds = 1f;        
+            ros = ROSConnection.GetOrCreateInstance();
+            ros.ConnectOnStart = false;
+            ros.RosIPAddress = ipAddress;
+            ros.RosIPAddress = ipAddress;
+            ros.RosPort = 10000;
+            ros.ShowHud = false;
+            ros.NetworkTimeoutSeconds = 1f;        
 
-        var rosObject = GameObject.Find("ROSConnectionPrefab(Clone)");
-        rosObject.AddComponent<ValueTransport>();
-        rosObject.GetComponent<ValueTransport>().rosNamespace = inpElem5.text;
-        rosObject.GetComponent<ValueTransport>().screenHeight = float.Parse(inpElem6.text);
+            rosObject = GameObject.Find("ROSConnectionPrefab(Clone)");
+            rosObject.AddComponent<ValueTransport>();
+            rosObject.GetComponent<ValueTransport>().rosNamespace = inpElem5.text;
+            rosObject.GetComponent<ValueTransport>().screenHeight = float.Parse(inpElem6.text);
+            
+            ros.Connect();
 
-        ros.Connect();
-
-        DontDestroyOnLoad(rosObject);
-       
+            DontDestroyOnLoad(rosObject);            
+        }
+        else
+        {
+            label.text = "Settings Menu --[ERROR] Please Fill All Forms.";
+            label.style.color = errorColor;
+        }     
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("screen height: " + Screen.height + "/ _h: " + _h);
-
         if(enableTransition)
         {
             if(Time.time - lastTime > duration)
@@ -81,8 +97,9 @@ public sealed class UIManager : MonoBehaviour
 
             if (_h > Screen.height * 0.99)
             {
+                rosObject.GetComponent<ValueTransport>().connectionError = ros.HasConnectionError;
                 if(ros.HasConnectionError)
-                {
+                {                    
                     SceneManager.LoadScene("IPAddressInput");
                     ros.Disconnect();
                 }
@@ -90,11 +107,8 @@ public sealed class UIManager : MonoBehaviour
                 {
                     SceneManager.LoadScene("ROS-Client");
                 }
-                
-                
             }
         }
-
     }
 
     void QuitButtonClicked()
