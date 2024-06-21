@@ -12,18 +12,22 @@ public class CameraInfoReciever : MonoBehaviour
     string topicName;
     [SerializeField] string cameraTopicName = "camera";
     [SerializeField] GameObject targetGameobject;
+    [SerializeField] Camera mainCameraObject;
     
     // Start is called before the first frame update
     void Start()
     {
         var rosObject = GameObject.Find("ROSConnectionPrefab(Clone)");
-        rosNamespace = rosObject.GetComponent<RosNamespaceManager>().rosNamespace;
+        rosNamespace = rosObject.GetComponent<ValueTransport>().rosNamespace;
+        var screenHeight = rosObject.GetComponent<ValueTransport>().screenHeight;
 
         ros = ROSConnection.GetOrCreateInstance();
 
         topicName = "/" + rosNamespace + "/" + cameraTopicName;
 
         ros.Subscribe<PoseMsg>(topicName,CameraPoseSubscriber);
+
+        mainCameraObject.orthographicSize = screenHeight * 0.5f;
     }
 
     void Update()

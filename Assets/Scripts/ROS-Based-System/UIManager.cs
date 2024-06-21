@@ -10,7 +10,7 @@ public sealed class UIManager : MonoBehaviour
     //[SerializeField] GameObject sampleButtonUI;
     [SerializeField] UIDocument _uiDocument;
     
-    TextField inpElem1, inpElem2, inpElem3, inpElem4, inpElem5;
+    TextField inpElem1, inpElem2, inpElem3, inpElem4, inpElem5, inpElem6;
     VisualElement headerElement;
     ROSConnection ros;
     bool enableTransition = false;
@@ -32,6 +32,7 @@ public sealed class UIManager : MonoBehaviour
         inpElem4 = _uiDocument.rootVisualElement.Q<TextField>("IPTextField4");
 
         inpElem5 = _uiDocument.rootVisualElement.Q<TextField>("NamespaceInputField");
+        inpElem6 = _uiDocument.rootVisualElement.Q<TextField>("ScreenHeightInputField");
 
         headerElement = _uiDocument.rootVisualElement.Q<VisualElement>("Header");
         _h = Screen.height * 0.1f;
@@ -53,8 +54,9 @@ public sealed class UIManager : MonoBehaviour
         ros.NetworkTimeoutSeconds = 1f;        
 
         var rosObject = GameObject.Find("ROSConnectionPrefab(Clone)");
-        rosObject.AddComponent<RosNamespaceManager>();
-        rosObject.GetComponent<RosNamespaceManager>().rosNamespace = inpElem5.text;
+        rosObject.AddComponent<ValueTransport>();
+        rosObject.GetComponent<ValueTransport>().rosNamespace = inpElem5.text;
+        rosObject.GetComponent<ValueTransport>().screenHeight = float.Parse(inpElem6.text);
 
         ros.Connect();
 
