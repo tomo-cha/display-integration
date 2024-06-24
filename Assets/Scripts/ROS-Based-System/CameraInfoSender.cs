@@ -26,6 +26,8 @@ public class CameraInfoSender : MonoBehaviour
     {
         ros = ROSConnection.GetOrCreateInstance();
 
+        Debug.Log(cameraInfoValues.Length);
+
         for(int i = 0; i < cameraInfoValues.Length; i ++)
         {
             topicName = "/" + cameraInfoValues[i].rosNamespace + "/" + cameraTopicName;
