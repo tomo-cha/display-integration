@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Takagi/ROS-Client.unity
     guid: f079906cb2ee06e489d4bdff8b96a428
+  - enabled: 1
+    path: Assets/Scenes/Takagi/ROS-Host-Channels/Ch1.unity
+    guid: 5cbd7e11429ccb44c98ba44ac55621d2
+  - enabled: 1
+    path: Assets/Scenes/Takagi/ROS-Host-Channels/Ch2.unity
+    guid: 52cdff08320de9e419170e40ae9a9424
   m_configObjects: {}

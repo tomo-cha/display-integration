@@ -10,7 +10,6 @@ public class ChannelControl : MonoBehaviour
 {
     ROSConnection ros;
     [SerializeField] string channelTopicName = "channel";
-    [SerializeField] [Range(1, 3)] int channel = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -23,23 +22,36 @@ public class ChannelControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SceneManager.GetActiveScene();
         if(Input.GetKeyUp(KeyCode.Alpha1) || Input.GetKeyUp(KeyCode.Keypad1))
         {
-            
+            PressedAction(1);
+        }
+
+        if(Input.GetKeyUp(KeyCode.Alpha2) || Input.GetKeyUp(KeyCode.Keypad2))
+        {
+            PressedAction(2);
         }
     }
 
     void PressedAction(int ch)
     {
-        switch(ch)
-        {
-            case 1:
-                var channelMsg = new Int32Msg();
-                channelMsg.data = ch;
+        string nextChannelName = "Ch" + ch.ToString();
+        string currentChannelName = SceneManager.GetActiveScene().name;
 
-                ros.Publish(channelTopicName, channelMsg);
-            break;
+        if(nextChannelName != currentChannelName)
+        {
+            // var rosObject = GameObject.Find("ROSConnectionPrefab(Clone)");
+            // DontDestroyOnLoad(rosObject);  
+
+            var channelMsg = new Int32Msg();
+            channelMsg.data = ch;
+
+            ros.Publish(channelTopicName, channelMsg);
+
+            SceneManager.LoadScene(nextChannelName);
         }
+        
 
     }
 }

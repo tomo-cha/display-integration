@@ -19,7 +19,10 @@ public class CameraInfoSender : MonoBehaviour
 
     [SerializeField] cameraInfoValue[] cameraInfoValues;
 
+    [SerializeField] float publishRate = 0.033f; // 60fps
     string topicName = "";
+
+    float lastTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -41,25 +44,32 @@ public class CameraInfoSender : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < cameraInfoValues.Length; i ++)
+        if(Time.time - lastTime > publishRate)
         {
-            PoseMsg poseMsg = new PoseMsg();
+            for(int i = 0; i < cameraInfoValues.Length; i ++)
+            {
+                PoseMsg poseMsg = new PoseMsg();
 
-            poseMsg.position = new PointMsg(
-               (double)cameraInfoValues[i].targetGameobject.transform.position.x,
-               (double)cameraInfoValues[i].targetGameobject.transform.position.y,
-               (double)cameraInfoValues[i].targetGameobject.transform.position.z
-            );
+                poseMsg.position = new PointMsg(
+                (double)cameraInfoValues[i].targetGameobject.transform.position.x,
+                (double)cameraInfoValues[i].targetGameobject.transform.position.y,
+                (double)cameraInfoValues[i].targetGameobject.transform.position.z
+                );
 
-            poseMsg.orientation = new QuaternionMsg(
-                (double)cameraInfoValues[i].targetGameobject.transform.rotation.x,
-                (double)cameraInfoValues[i].targetGameobject.transform.rotation.y,
-                (double)cameraInfoValues[i].targetGameobject.transform.rotation.z,
-                (double)cameraInfoValues[i].targetGameobject.transform.rotation.w
-            );
+                poseMsg.orientation = new QuaternionMsg(
+                    (double)cameraInfoValues[i].targetGameobject.transform.rotation.x,
+                    (double)cameraInfoValues[i].targetGameobject.transform.rotation.y,
+                    (double)cameraInfoValues[i].targetGameobject.transform.rotation.z,
+                    (double)cameraInfoValues[i].targetGameobject.transform.rotation.w
+                );
 
-            ros.Publish(topicName, poseMsg);
+                ros.Publish(topicName, poseMsg);
+            }
+
+            lastTime = Time.time;
+
         }
+        
         
     }
 }

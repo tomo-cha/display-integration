@@ -10,6 +10,9 @@ public class ObjectMotionSender : MonoBehaviour
     ROSConnection ros;
     [SerializeField] string objectTopicName = "object";
     [SerializeField] GameObject targetGameobject;
+    [SerializeField] float publishRate = 0.033f; // 60fps
+
+    float lastTime = 0;
 
     string topicName = "";
 
@@ -25,21 +28,27 @@ public class ObjectMotionSender : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PoseMsg poseMsg = new PoseMsg();
+        if(Time.time - lastTime > publishRate)
+        {
+            PoseMsg poseMsg = new PoseMsg();
 
-        poseMsg.position = new PointMsg(
-            (double)targetGameobject.transform.position.x,
-            (double)targetGameobject.transform.position.y,
-            (double)targetGameobject.transform.position.z
-        );
+            poseMsg.position = new PointMsg(
+                (double)targetGameobject.transform.position.x,
+                (double)targetGameobject.transform.position.y,
+                (double)targetGameobject.transform.position.z
+            );
 
-        poseMsg.orientation = new QuaternionMsg(
-            (double)targetGameobject.transform.rotation.x,
-            (double)targetGameobject.transform.rotation.y,
-            (double)targetGameobject.transform.rotation.z,
-            (double)targetGameobject.transform.rotation.w
-        );
+            poseMsg.orientation = new QuaternionMsg(
+                (double)targetGameobject.transform.rotation.x,
+                (double)targetGameobject.transform.rotation.y,
+                (double)targetGameobject.transform.rotation.z,
+                (double)targetGameobject.transform.rotation.w
+            );
 
-        ros.Publish(topicName, poseMsg);
+            ros.Publish(topicName, poseMsg);
+
+            lastTime = Time.time;
+        }
+        
     }
 }
