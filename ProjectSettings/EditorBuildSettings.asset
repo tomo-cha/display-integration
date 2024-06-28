@@ -8,16 +8,22 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Takagi/IPAddressInput.unity
+  - enabled: 0
+    path: Assets/Scenes/Takagi/01-RoboticsHubBasedSystem/IPAddressInput.unity
     guid: 40fbd5fef39eb3a46b4560c040bbb7d7
-  - enabled: 1
-    path: Assets/Scenes/Takagi/ROS-Client.unity
+  - enabled: 0
+    path: Assets/Scenes/Takagi/01-RoboticsHubBasedSystem/ROS-Client.unity
     guid: f079906cb2ee06e489d4bdff8b96a428
-  - enabled: 1
-    path: Assets/Scenes/Takagi/ROS-Host-Channels/Ch1.unity
+  - enabled: 0
+    path: Assets/Scenes/Takagi/01-RoboticsHubBasedSystem/ROS-Host-Channels/Ch1.unity
     guid: 5cbd7e11429ccb44c98ba44ac55621d2
-  - enabled: 1
-    path: Assets/Scenes/Takagi/ROS-Host-Channels/Ch2.unity
+  - enabled: 0
+    path: Assets/Scenes/Takagi/01-RoboticsHubBasedSystem/ROS-Host-Channels/Ch2.unity
     guid: 52cdff08320de9e419170e40ae9a9424
+  - enabled: 1
+    path: Assets/Scenes/Takagi/02-Ros2ForUnityBasedSystem/R2FU-IPAddressInput.unity
+    guid: 9ac3973e223377545aadb73a22d9f741
+  - enabled: 1
+    path: Assets/Scenes/Takagi/02-Ros2ForUnityBasedSystem/R2FU-Client.unity
+    guid: fc6b2932ee635324f9196d4d06466332
   m_configObjects: {}
