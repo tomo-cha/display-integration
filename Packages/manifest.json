@@ -12,6 +12,7 @@
     "com.unity.toolchain.win-x86_64-linux-x86_64": "2.0.9",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.8.0",
+    "jp.keijiro.klak.ndi": "2.1.2",
     "jp.keijiro.osc-jack.visualscripting": "2.0.0",
     "org.nuget.system.memory": "4.5.3",
     "com.unity.modules.ai": "1.0.0",
