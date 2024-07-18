@@ -38,30 +38,21 @@ public class CameraTouchInteraction : MonoBehaviour
                 if(Vector3.Distance(lastPosition, worldPoint) > distanceThreshold)
                 {
                     float a = (worldPoint.z - lastPosition.z) / (worldPoint.x - lastPosition.x);
-                    float fixed_a = ((worldPoint.z - lastPosition.z) > 0f)? a : -a;
-                    
-                    // float y_angular = (float)Math.Atan2(
-                    //     worldPoint.z - lastPosition.z,
-                    //     worldPoint.x - lastPosition.x
-                    //     );
 
                     float y_angular = Mathf.Atan(a);
-
-                   // Debug.Log(y_angular);
-
                     float y_angular_rad = y_angular / Mathf.PI * 180f;
 
-                    Quaternion quat = Quaternion.Euler(0f, y_angular_rad, 0f);
+                    if((worldPoint.x - lastPosition.x) < 0) y_angular_rad += 180f;
+
+                    Quaternion quat = Quaternion.Euler(0f, -y_angular_rad, 0f);
 
                     GameObject.Instantiate(markerObject, lastPosition, quat);
 
                     lastPosition = worldPoint;
                 }
 
-            }
-
-            
+            }      
             
         }
-}
+    }
 }
