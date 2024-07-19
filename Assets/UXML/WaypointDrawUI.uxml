@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/USS/ConnectionUI.uss?fileID=7433441132597879392&amp;guid=b8d5ceea71a354448bf4d86d21139d11&amp;type=3#ConnectionUI" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; height: 100px; justify-content: flex-start; align-self: flex-start; width: 100%; align-items: flex-start; background-color: rgba(212, 212, 212, 0); flex-direction: column; -unity-font: initial; font-size: 24px;">
+        <ui:VisualElement name="Buttons" style="width: 100%; height: 30%; align-items: flex-start; justify-content: center; flex-direction: row;">
+            <ui:VisualElement name="PublishButton" class="Connect" style="flex-grow: 0; height: 15%; width: 35%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center; margin-top: 68px;">
+                <ui:Label tabindex="-1" text="Publish Waypoints" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Publish" class="connect Button" style="height: 58px; border-top-left-radius: 12px; border-bottom-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ResetButton" class="Connect" style="flex-grow: 0; height: 15%; width: 35%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center; margin-top: 68px;">
+                <ui:Label tabindex="-1" text="Reset Waypoints" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Reset" class="connect Button" style="height: 58px; border-top-left-radius: 12px; border-bottom-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SettingsButton" class="Connect" style="flex-grow: 0; height: 15%; width: 35%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center; margin-top: 68px;">
+                <ui:Label tabindex="-1" text="Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Settings" class="connect Button" style="height: 58px; border-top-left-radius: 12px; border-bottom-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Header" style="flex-grow: 0; height: 10%; width: 100%; flex-direction: column; background-color: rgb(58, 75, 71); align-self: flex-start; align-items: flex-start; justify-content: center; position: absolute;">
+            <ui:Label tabindex="-1" text="ROS2-Unity Waypoints Drawer System" parse-escape-sequences="true" display-tooltip-when-elided="true" style="justify-content: flex-start; align-self: flex-start; -unity-text-align: middle-left; color: rgb(212, 212, 212); font-size: 20px; padding-left: 30px; padding-top: 0; align-items: flex-start; -unity-font: initial; -unity-font-style: bold;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
