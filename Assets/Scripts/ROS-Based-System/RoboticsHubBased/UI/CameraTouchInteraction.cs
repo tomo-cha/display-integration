@@ -6,17 +6,25 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
+using Unity.Robotics;
+using RosMessageTypes.Geometry;
+using Unity.Robotics.ROSTCPConnector;
+
 public class CameraTouchInteraction : MonoBehaviour
 {
+    ROSConnection ros;
     [SerializeField] GameObject markerObject;
     [SerializeField] float distanceThreshold = 0.2f;
     [SerializeField] GameObject UiGameObject;
+    [SerializeField] string topicName = "waypoints_unity";
 
     Camera cam;
     Vector3 lastPosition;
     bool initialProcess = false;    
     GameObject parentObject;
     UIDocument _uiDocument;
+
+    List<PoseMsg> waypoints = new List<PoseMsg>();
     void Start ()
     {
         this.cam = FindObjectOfType<Camera>();
@@ -27,6 +35,13 @@ public class CameraTouchInteraction : MonoBehaviour
         _uiDocument = UiGameObject.GetComponent<UIDocument>();
         var resetButtonElement = _uiDocument.rootVisualElement.Q<Label>("Reset");
         resetButtonElement.AddManipulator(new Clickable(ResetClicked));
+
+        _uiDocument = UiGameObject.GetComponent<UIDocument>();
+        var publishButtonElement = _uiDocument.rootVisualElement.Q<Label>("Publish");
+        publishButtonElement.AddManipulator(new Clickable(PublishClicked));
+
+        ros = ROSConnection.GetOrCreateInstance();
+        ros.RegisterPublisher<PoseArrayMsg>(topicName);
     }
         
     void Update () {
@@ -63,6 +78,9 @@ public class CameraTouchInteraction : MonoBehaviour
                         go.transform.parent = parentObject.transform;
 
                         lastPosition = worldPoint;
+
+                        var pose = ConvertTransformUnityToRos(lastPosition, -y_angular);
+                        waypoints.Add(pose);
                     }
                 }    
             }              
@@ -84,5 +102,44 @@ public class CameraTouchInteraction : MonoBehaviour
             
         parentObject = new GameObject("robot1_waypoints");
         initialProcess = false;
+    }
+
+    void PublishClicked()
+    {
+        Debug.Log("Reset Button is Clicked");
+
+        if(waypoints.Count > 0)
+        {
+            PoseArrayMsg msg = new PoseArrayMsg();
+        
+            PoseMsg[] poses = new PoseMsg[waypoints.Count]; 
+
+            for(int i = 0; i < waypoints.Count; i ++)
+            {
+                poses[i] = waypoints[i];
+            }
+
+            msg.poses = poses;
+            msg.header.stamp.sec = Time.frameCount;
+
+            ros.Publish(topicName, msg);
+
+        }        
+    }
+
+    PoseMsg ConvertTransformUnityToRos(Vector3 unityPosition, float unityRotation)
+    {
+        PoseMsg pose = new PoseMsg();
+        pose.position.x =  unityPosition.z;
+        pose.position.y = -unityPosition.x;
+        pose.position.z = 0f;
+
+        Quaternion unity_quat = Quaternion.Euler(0f, 0f, unityRotation);
+        pose.orientation.x = unity_quat.x;
+        pose.orientation.y = unity_quat.y;
+        pose.orientation.z = unity_quat.z;
+        pose.orientation.w = unity_quat.w;
+
+        return pose;
     }
 }
