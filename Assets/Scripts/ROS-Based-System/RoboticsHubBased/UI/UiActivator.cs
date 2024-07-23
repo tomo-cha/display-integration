@@ -6,7 +6,7 @@ public class UiActivator : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] GameObject UiGameObject;
-    public bool showGUI = false;
+    public bool showGUI = true;
     void Start()
     {
         
@@ -25,7 +25,7 @@ public class UiActivator : MonoBehaviour
         {
             var mousePosition = Input.mousePosition;
             //Debug.Log(mousePosition);
-            if(mousePosition.y > Screen.height * 0.8)
+            if(mousePosition.y > Screen.height * 0.9)
             {
                 showGUI = !showGUI;
             }
