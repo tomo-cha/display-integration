@@ -8,45 +8,89 @@ using UnityEngine.SceneManagement;
 
 using Unity.Robotics;
 using RosMessageTypes.Geometry;
+using RosMessageTypes.Std;
 using Unity.Robotics.ROSTCPConnector;
 
 public class CameraTouchInteraction : MonoBehaviour
 {
     ROSConnection ros;
+    [Header("必要なゲームオブジェクト")] 
     [SerializeField] GameObject markerObject;
-    [SerializeField] float distanceThreshold = 0.2f;
+    [SerializeField] GameObject robotObject;
     [SerializeField] GameObject UiGameObject;
-    [SerializeField] string topicName = "waypoints_unity";
 
+    [Header("しきい値やレートの調整")]
+    [SerializeField] float distanceThreshold = 0.2f;
+    [SerializeField] [Range(0, 1f)] float nearDistanceRatio = 0.5f;
+    [SerializeField] float publishRate = 2f;   
+
+    [Header("トピック名の設定")] 
+    [SerializeField] string waypointTopicName = "waypoints_unity";
+    [SerializeField] string cancelTopicName = "cancel_status";
+    [SerializeField] string distanceTopicName = "distance_remain";
     Camera cam;
     Vector3 lastPosition;
     bool initialProcess = false;    
     GameObject parentObject;
     UIDocument _uiDocument;
+    List<PoseStampedMsg> waypoints = new List<PoseStampedMsg>();
 
-    List<PoseMsg> waypoints = new List<PoseMsg>();
+    bool enableNavigation = false;
+    int currentWaypointID = 0;
+    float lastTime = 0f;
+    float distance_remain = 0f;
+
     void Start ()
     {
-        this.cam = FindObjectOfType<Camera>();
+        cam = FindObjectOfType<Camera>();
 
         parentObject = new GameObject("robot1_waypoints");
         parentObject.transform.position = Vector3.zero;
 
         _uiDocument = UiGameObject.GetComponent<UIDocument>();
         var resetButtonElement = _uiDocument.rootVisualElement.Q<Label>("Reset");
-        resetButtonElement.AddManipulator(new Clickable(ResetClicked));
+        resetButtonElement.AddManipulator(new Clickable(ResetButtonPressed));
 
         _uiDocument = UiGameObject.GetComponent<UIDocument>();
         var publishButtonElement = _uiDocument.rootVisualElement.Q<Label>("Publish");
-        publishButtonElement.AddManipulator(new Clickable(PublishClicked));
+        publishButtonElement.AddManipulator(new Clickable(PublishButtonPressed));
+
+        _uiDocument = UiGameObject.GetComponent<UIDocument>();
+        var cancelButtonElement = _uiDocument.rootVisualElement.Q<Label>("Cancel");
+        cancelButtonElement.AddManipulator(new Clickable(CancelButtonPressed));
 
         ros = ROSConnection.GetOrCreateInstance();
-        ros.RegisterPublisher<PoseArrayMsg>(topicName);
+
+        ros.RegisterPublisher<PoseStampedMsg>(waypointTopicName);
+        ros.RegisterPublisher<BoolMsg>(cancelTopicName);
+
+        ros.Subscribe<Float32Msg>(distanceTopicName, DistanceInfoCallback);
+
+        Debug.Log("Threshold Distance is " + distanceThreshold * nearDistanceRatio);
     }
         
     void Update () {
-        if(Input.GetMouseButton(0))
+
+        if(enableNavigation)
+        {            
+            //ナビゲーションが開始されている際の処理
+            if(Time.time - lastTime > publishRate)
+            {
+                ros.Publish(waypointTopicName, waypoints[currentWaypointID]);
+                lastTime = Time.time;
+
+                if(distance_remain < distanceThreshold * nearDistanceRatio)
+                {
+                    Debug.Log("near!!!");
+                    currentWaypointID ++;
+                    if(currentWaypointID > waypoints.Count - 1) enableNavigation = false;
+                }
+            }                         
+        }
+        else
         {
+            //ナビゲーションが開始されていない際の処理＝通過点の設定
+            currentWaypointID = 0;
             var mousePosition = Input.mousePosition;
 
             if(mousePosition.y < Screen.height * 0.7)
@@ -56,78 +100,86 @@ public class CameraTouchInteraction : MonoBehaviour
 
                 worldPoint.y = 0.0f;
 
-                if(!initialProcess)
+                if(Input.GetMouseButton(0))
                 {
-                    lastPosition = worldPoint;
-                    initialProcess = true;
-                }
-                else
-                {
-                    if(Vector3.Distance(lastPosition, worldPoint) > distanceThreshold)
+                    if(!initialProcess)
                     {
-                        float a = (worldPoint.z - lastPosition.z) / (worldPoint.x - lastPosition.x);
-
-                        float y_angular = Mathf.Atan(a);
-                        float y_angular_rad = y_angular / Mathf.PI * 180f;
-
-                        if((worldPoint.x - lastPosition.x) < 0) y_angular_rad += 180f;
-
-                        Quaternion quat = Quaternion.Euler(0f, -y_angular_rad, 0f);
-
-                        var go = GameObject.Instantiate(markerObject, lastPosition, quat);
-                        go.transform.parent = parentObject.transform;
-
                         lastPosition = worldPoint;
-
-                        var pose = ConvertTransformUnityToRos(lastPosition, -y_angular);
-                        waypoints.Add(pose);
+                        initialProcess = true;
                     }
-                }    
-            }              
-        }
+                    else
+                    {
+                        if(Vector3.Distance(lastPosition, worldPoint) > distanceThreshold)
+                        {
+                            float a = (worldPoint.z - lastPosition.z) / (worldPoint.x - lastPosition.x);
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            GameObject.Destroy(parentObject);
-            
-            parentObject = new GameObject("robot1_waypoints");
-            initialProcess = false;
+                            float y_angular = Mathf.Atan(a);
+                            float y_angular_rad = y_angular / Mathf.PI * 180f;
+
+                            if((worldPoint.x - lastPosition.x) < 0) y_angular_rad += 180f;
+
+                            Quaternion quat = Quaternion.Euler(0f, -y_angular_rad, 0f);
+
+                            var go = GameObject.Instantiate(markerObject, lastPosition, quat);
+                            go.transform.parent = parentObject.transform;
+
+                            lastPosition = worldPoint;
+
+                            PoseStampedMsg poseStamped = new PoseStampedMsg();
+
+                            poseStamped.header.stamp.sec = 0;
+                            poseStamped.header.stamp.nanosec = 0;
+                            poseStamped.header.frame_id = "map";
+
+                            poseStamped.pose = ConvertTransfromUnityToRos(lastPosition, -y_angular);
+                            waypoints.Add(poseStamped);
+                        }
+                    } 
+                }
+            }  
         }
     }
 
-    void ResetClicked()
+    void ResetButtonPressed()
     {
-        Debug.Log("Reset Button is Clicked");
+        Debug.Log("Reset Button is Pressed");
+
+        waypoints = new List<PoseStampedMsg>();
+
         GameObject.Destroy(parentObject);
             
         parentObject = new GameObject("robot1_waypoints");
+        enableNavigation = false;
         initialProcess = false;
     }
 
-    void PublishClicked()
+    void PublishButtonPressed()
     {
-        Debug.Log("Reset Button is Clicked");
-
+        Debug.Log("Publish Button is Pressed");
         if(waypoints.Count > 0)
         {
-            PoseArrayMsg msg = new PoseArrayMsg();
-        
-            PoseMsg[] poses = new PoseMsg[waypoints.Count]; 
-
-            for(int i = 0; i < waypoints.Count; i ++)
-            {
-                poses[i] = waypoints[i];
-            }
-
-            msg.poses = poses;
-            msg.header.stamp.sec = Time.frameCount;
-
-            ros.Publish(topicName, msg);
-
-        }        
+            enableNavigation = true;
+            Debug.Log("Navigation has been started!!!");
+        }
+        else
+        {
+            Debug.LogWarning("Navigation has not been started");
+        }
+       
     }
 
-    PoseMsg ConvertTransformUnityToRos(Vector3 unityPosition, float unityRotation)
+    void CancelButtonPressed()
+    {
+        Debug.Log("Cancel Button is Pressed");
+        BoolMsg msg = new BoolMsg();
+        msg.data = true;
+        
+        ros.Publish(cancelTopicName, msg);
+
+        enableNavigation = false;
+    }
+
+    PoseMsg ConvertTransfromUnityToRos(Vector3 unityPosition, float unityRotation)
     {
         PoseMsg pose = new PoseMsg();
         pose.position.x =  unityPosition.z;
@@ -141,5 +193,11 @@ public class CameraTouchInteraction : MonoBehaviour
         pose.orientation.w = unity_quat.w;
 
         return pose;
+    }
+
+    void DistanceInfoCallback(Float32Msg msg)
+    {
+        Debug.Log("Disntance remain... " + msg.data + "/ Threshold..." + distanceThreshold * nearDistanceRatio);
+        distance_remain = msg.data;
     }
 }
