@@ -18,6 +18,7 @@ public class CameraTouchInteraction : MonoBehaviour
     [SerializeField] GameObject markerObject;
     [SerializeField] GameObject robotObject;
     [SerializeField] GameObject UiGameObject;
+    [SerializeField] MapTransformer mapTransformer;
 
     [Header("しきい値やレートの調整")]
     [SerializeField] float distanceThreshold = 0.2f;
@@ -131,7 +132,7 @@ public class CameraTouchInteraction : MonoBehaviour
                             poseStamped.header.stamp.nanosec = 0;
                             poseStamped.header.frame_id = "map";
 
-                            poseStamped.pose = ConvertTransfromUnityToRos(lastPosition, -y_angular);
+                            poseStamped.pose = ConvertTransfromUnityToRos(lastPosition + mapTransformer.OriginPos, -y_angular_rad);
                             waypoints.Add(poseStamped);
                         }
                     } 
@@ -186,7 +187,7 @@ public class CameraTouchInteraction : MonoBehaviour
         pose.position.y = -unityPosition.x;
         pose.position.z = 0f;
 
-        Quaternion unity_quat = Quaternion.Euler(0f, 0f, unityRotation);
+        Quaternion unity_quat = Quaternion.Euler(0f, 0f, unityRotation - 90f);
         pose.orientation.x = unity_quat.x;
         pose.orientation.y = unity_quat.y;
         pose.orientation.z = unity_quat.z;

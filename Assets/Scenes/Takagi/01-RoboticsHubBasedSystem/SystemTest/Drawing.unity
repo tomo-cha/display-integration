@@ -282,6 +282,7 @@ MonoBehaviour:
   markerObject: {fileID: 1839185654139293951, guid: 9769596dc9596ed4a8f4daea68111d90, type: 3}
   robotObject: {fileID: 828118117}
   UiGameObject: {fileID: 692712560}
+  mapTransformer: {fileID: 1378151208}
   distanceThreshold: 0.4
   nearDistanceRatio: 0.85
   publishRate: 2
