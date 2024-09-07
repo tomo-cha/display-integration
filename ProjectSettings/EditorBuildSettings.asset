@@ -26,7 +26,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Takagi/02-Ros2ForUnityBasedSystem/R2FU-Client.unity
     guid: fc6b2932ee635324f9196d4d06466332
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Takagi/01-RoboticsHubBasedSystem/SystemTest/WaypointDrawing.unity
     guid: 716b747efe8939b4e90fc782bebb288b
+  - enabled: 1
+    path: Assets/Scenes/Takagi/Content/IPAddressInput.unity
+    guid: a25157b827e9bd746b2a2ff2c4e3229d
+  - enabled: 1
+    path: Assets/Scenes/Takagi/Content/CountScene.unity
+    guid: 0b5d2bc9d8e0c1a47a5f81cdfc920ef1
+  - enabled: 1
+    path: Assets/Scenes/Takagi/Content/ResultScene.unity
+    guid: 00b1443b1a730f549ba1da3cb254801a
   m_configObjects: {}

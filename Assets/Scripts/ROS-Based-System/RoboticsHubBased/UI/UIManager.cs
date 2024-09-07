@@ -10,6 +10,8 @@ public sealed class UIManager : MonoBehaviour
 {
     //[SerializeField] GameObject sampleButtonUI;
     [SerializeField] UIDocument _uiDocument;
+    [SerializeField] string nextSceneName = "contents";
+    [SerializeField] bool useMultipleScreens = false;
     
     TextField inpElem1, inpElem2, inpElem3, inpElem4, inpElem5, inpElem6;
     Label label;
@@ -37,8 +39,12 @@ public sealed class UIManager : MonoBehaviour
         inpElem3 = _uiDocument.rootVisualElement.Q<TextField>("IPTextField3");
         inpElem4 = _uiDocument.rootVisualElement.Q<TextField>("IPTextField4");
 
-        inpElem5 = _uiDocument.rootVisualElement.Q<TextField>("NamespaceInputField");
-        inpElem6 = _uiDocument.rootVisualElement.Q<TextField>("ScreenHeightInputField");
+        if(useMultipleScreens)
+        {
+            inpElem5 = _uiDocument.rootVisualElement.Q<TextField>("NamespaceInputField");
+            inpElem6 = _uiDocument.rootVisualElement.Q<TextField>("ScreenHeightInputField");
+        }
+        
 
         headerElement = _uiDocument.rootVisualElement.Q<VisualElement>("Header");
         _h = Screen.height * 0.1f;
@@ -53,9 +59,8 @@ public sealed class UIManager : MonoBehaviour
 
     void ButtonClicked()
     {
-        if(inpElem1.text != "" && inpElem2.text != "" && inpElem3.text != "" && inpElem4.text != "" && inpElem5.text != "" && inpElem6.text != "")
+        if(inpElem1.text != "" && inpElem2.text != "" && inpElem3.text != "" && inpElem4.text != "")
         {
-            enableTransition = true;
             string ipAddress = inpElem1.text + "." + inpElem2.text + "." + inpElem3.text + "." + inpElem4.text;
 
             ros = ROSConnection.GetOrCreateInstance();
@@ -64,13 +69,24 @@ public sealed class UIManager : MonoBehaviour
             ros.RosIPAddress = ipAddress;
             ros.RosPort = 10000;
             ros.ShowHud = false;
+            ros.listenForTFMessages = false;
             ros.NetworkTimeoutSeconds = 1f;        
 
             rosObject = GameObject.Find("ROSConnectionPrefab(Clone)");
             rosObject.AddComponent<ValueTransport>();
-            rosObject.GetComponent<ValueTransport>().rosNamespace = inpElem5.text;
-            rosObject.GetComponent<ValueTransport>().screenHeight = float.Parse(inpElem6.text);
-            
+
+            if(useMultipleScreens && inpElem5.text != "" && inpElem6.text != "")
+            {
+                enableTransition = true;
+                rosObject.GetComponent<ValueTransport>().rosNamespace = inpElem5.text;
+                rosObject.GetComponent<ValueTransport>().screenHeight = float.Parse(inpElem6.text);
+            }
+
+            if(!useMultipleScreens)
+            {
+                enableTransition = true;
+            }
+
             ros.Connect();
 
             DontDestroyOnLoad(rosObject);            
@@ -105,7 +121,7 @@ public sealed class UIManager : MonoBehaviour
                 }
                 else
                 {
-                    SceneManager.LoadScene("ROS-Client");
+                    SceneManager.LoadScene(nextSceneName);
                 }
             }
         }

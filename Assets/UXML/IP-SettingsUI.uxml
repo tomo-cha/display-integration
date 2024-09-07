@@ -20,7 +20,7 @@
             <ui:TextField picking-mode="Ignore" label="Screen Height Scale" value="filler text" name="ScreenHeightInputField" is-delayed="false" style="width: 50%; justify-content: flex-start; margin-left: 3px; font-size: 21px; height: 100%; -unity-font-style: bold; -unity-text-align: middle-left; -unity-text-outline-color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0);" />
             <ui:Label text="(m)" display-tooltip-when-elided="true" name="Label" />
         </ui:VisualElement>
-        <ui:VisualElement name="ConnectButton" class="Connect" style="flex-grow: 0; height: 15%; width: 35%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center;">
+        <ui:VisualElement name="ConnectButton" class="Connect" style="flex-grow: 0; height: 15%; width: 35%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center; -unity-background-image-tint-color: rgba(1, 108, 86, 255);">
             <ui:Label tabindex="-1" text="Connect" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Connect" class="connect Button" style="height: 60%; border-top-left-radius: 12px; border-bottom-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px;" />
         </ui:VisualElement>
         <ui:VisualElement name="QuitButton" class="Connect" style="flex-grow: 0; height: 15%; width: 35%; font-size: 1px; -unity-text-align: upper-left; justify-content: center; align-self: center; align-items: center;">
